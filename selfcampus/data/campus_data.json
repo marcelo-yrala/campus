@@ -1,0 +1,247 @@
+{
+  "userName": "Estudiante",
+  "theme": "dark",
+  "activeViewMode": "subjects",
+  "quickNotes": "📌 Recordatorio rápido:\n- Las inscripciones a exámenes finales abren el próximo lunes.\n- Revisar entregas pendientes en el aula virtual de la universidad y del centro de formación.",
+  "quickLinks": [
+    {
+      "id": "ql-1",
+      "title": "Campus Virtual",
+      "url": "https://campus.miuniversidad.edu.ar",
+      "icon": "fa-building-columns"
+    },
+    {
+      "id": "ql-2",
+      "title": "Correo Institucional",
+      "url": "https://mail.google.com",
+      "icon": "fa-envelope"
+    },
+    {
+      "id": "ql-3",
+      "title": "Google Drive",
+      "url": "https://drive.google.com",
+      "icon": "fa-hard-drive"
+    },
+    {
+      "id": "ql-4",
+      "title": "Biblioteca Digital",
+      "url": "https://biblioteca.unlp.edu.ar",
+      "icon": "fa-book"
+    },
+    {
+      "id": "ql-5",
+      "title": "Calendario Académico",
+      "url": "https://calendar.google.com",
+      "icon": "fa-calendar-days"
+    }
+  ],
+  "institutions": [
+    {
+      "id": "inst-1",
+      "name": "Universidad Tecnológica Nacional (UTN)",
+      "campusUrl": "https://campus.frba.utn.edu.ar",
+      "portalUrl": "https://guarani.frba.utn.edu.ar",
+      "icon": "fa-building-columns",
+      "color": "#6366f1",
+      "notes": "Usuario: Legajo UTN. Soporte: campus@frba.utn.edu.ar",
+      "createdAt": 1788727603160
+    },
+    {
+      "id": "inst-2",
+      "name": "Centro de Formación Profesional (CFP 6)",
+      "campusUrl": "https://cfp6.educacion.gob.ar",
+      "portalUrl": "https://cfp6.educacion.gob.ar/alumnos",
+      "icon": "fa-school",
+      "color": "#10b981",
+      "notes": "Horario de secretaría: 18:00 a 21:00 hs.",
+      "createdAt": 1788727703160
+    },
+    {
+      "id": "inst-3",
+      "name": "Academia Digital & Cursos",
+      "campusUrl": "https://classroom.google.com",
+      "portalUrl": "https://drive.google.com",
+      "icon": "fa-laptop-code",
+      "color": "#ec4899",
+      "notes": "Talleres y cursos complementarios online.",
+      "createdAt": 1788727803160
+    }
+  ],
+  "classrooms": [
+    {
+      "id": "c-1",
+      "name": "Programación Web Fullstack",
+      "institution": "Centro de Formación Profesional (CFP 6)",
+      "career": "Desarrollo de Software",
+      "platform": "moodle",
+      "url": "https://campus.miuniversidad.edu.ar/course/view.php?id=101",
+      "meetingUrl": "https://meet.google.com/abc-defg-hij",
+      "driveUrl": "https://drive.google.com",
+      "schedule": "Mar y Jue 18:30 - 21:30",
+      "teacher": "Prof. Carlos Rossi (Com. 201)",
+      "color": "#6366f1",
+      "icon": "fa-laptop-code",
+      "notes": "Clave matriculación: FULLSTACK2026. Entrega de laboratorios los viernes.",
+      "createdAt": 1788727903160
+    },
+    {
+      "id": "c-2",
+      "name": "Bases de Datos Relacionales y NoSQL",
+      "institution": "Universidad Tecnológica Nacional (UTN)",
+      "career": "Ingeniería en Sistemas",
+      "platform": "classroom",
+      "url": "https://classroom.google.com",
+      "meetingUrl": "https://zoom.us/j/9876543210",
+      "driveUrl": "https://drive.google.com",
+      "schedule": "Miércoles 19:00 - 22:00",
+      "teacher": "Dra. Elena Gómez",
+      "color": "#10b981",
+      "icon": "fa-database",
+      "notes": "Código Classroom: db-sql-2026. Servidor PostgreSQL en puerto 5432.",
+      "createdAt": 1788728003160
+    },
+    {
+      "id": "c-3",
+      "name": "Álgebra Lineal y Geometría Analítica",
+      "institution": "Universidad Tecnológica Nacional (UTN)",
+      "career": "Ingeniería en Sistemas",
+      "platform": "teams",
+      "url": "https://teams.microsoft.com",
+      "meetingUrl": "https://meet.google.com/xyz-uvwx-rst",
+      "driveUrl": "",
+      "schedule": "Lunes y Viernes 16:00 - 18:00",
+      "teacher": "Ing. Marcos Benítez",
+      "color": "#06b6d4",
+      "icon": "fa-calculator",
+      "notes": "Canal de Teams 'Comisión A'. Guía de ejercicios en archivos.",
+      "createdAt": 1788728103160
+    },
+    {
+      "id": "c-4",
+      "name": "Diseño UX/UI & Prototipado",
+      "institution": "Academia Digital & Cursos",
+      "career": "Diseño Multimedia",
+      "platform": "canvas",
+      "url": "https://canvas.instructure.com",
+      "meetingUrl": "https://meet.google.com/des-uxui-2026",
+      "driveUrl": "https://drive.google.com",
+      "schedule": "Sábados 09:00 - 13:00",
+      "teacher": "Lic. Sofía Albarracín",
+      "color": "#ec4899",
+      "icon": "fa-palette",
+      "notes": "Acceso a Figma con correo institucional.",
+      "createdAt": 1788728203160
+    }
+  ],
+  "reminders": [
+    {
+      "id": "r-1",
+      "title": "Entrega TP 1: API REST con Autenticación",
+      "classroomId": "c-1",
+      "priority": "high",
+      "dueDate": "2026-09-15",
+      "dueTime": "23:59",
+      "details": "Subir repositorio de GitHub y documentación en PDF al aula virtual.",
+      "completed": false,
+      "createdAt": 1788728303160
+    },
+    {
+      "id": "r-2",
+      "title": "Primer Parcial Teórico: Normalización de BD",
+      "classroomId": "c-2",
+      "priority": "high",
+      "dueDate": "2026-09-18",
+      "dueTime": "19:00",
+      "details": "Modalidad presencial, aula 204. Repasar 1FN, 2FN y 3FN.",
+      "completed": false,
+      "createdAt": 1788728403160
+    },
+    {
+      "id": "r-3",
+      "title": "Lectura de matrices y determinantes (Capítulo 3)",
+      "classroomId": "c-3",
+      "priority": "low",
+      "dueDate": "2026-09-12",
+      "dueTime": "18:00",
+      "details": "Ejercicios pares del libro guía.",
+      "completed": false,
+      "createdAt": 1788728503160
+    }
+  ],
+  "teachers": [
+    {
+      "id": "t-1",
+      "name": "Prof. Ezequiel Taboada",
+      "email": "etaboada@ejemplo.edu.ar",
+      "phone": "+54 9 11 4455-6677",
+      "institution": "Centro de Formación Profesional (CFP 6)",
+      "subject": "Programación con IA",
+      "officeHours": "Jueves 17:30 a 18:30 hs",
+      "meetUrl": "https://meet.google.com/abc-defg-hij",
+      "color": "#6366f1",
+      "icon": "fa-laptop-code",
+      "notes": "Indicar en el asunto: [IA]. Responder consultas con 48hs de anticipación.",
+      "createdAt": 1788728603160
+    },
+    {
+      "id": "t-2",
+      "name": "Prof. Carlos Rossi (Com. 201)",
+      "email": "crossi@ejemplo.edu.ar",
+      "phone": "",
+      "institution": "Centro de Formación Profesional (CFP 6)",
+      "subject": "Programación Web Fullstack",
+      "officeHours": "Martes y Jueves 18:00 hs",
+      "meetUrl": "https://meet.google.com/abc-defg-hij",
+      "color": "#6366f1",
+      "icon": "fa-chalkboard-user",
+      "notes": "Consultas de proyectos prácticos con captura de pantalla.",
+      "createdAt": 1788728703160
+    },
+    {
+      "id": "t-3",
+      "name": "Dra. Elena Gómez",
+      "email": "egomez@ejemplo.edu.ar",
+      "phone": "+54 9 11 5566-7788",
+      "institution": "Universidad Tecnológica Nacional (UTN)",
+      "subject": "Bases de Datos Relacionales y NoSQL",
+      "officeHours": "Miércoles 18:00 a 19:00 hs",
+      "meetUrl": "https://zoom.us/j/9876543210",
+      "color": "#10b981",
+      "icon": "fa-database",
+      "notes": "Consultas de SQL y esquemas de BD antes de clase.",
+      "createdAt": 1788728803160
+    },
+    {
+      "id": "t-4",
+      "name": "Ing. Marcos Benítez",
+      "email": "mbenitez@ejemplo.edu.ar",
+      "phone": "",
+      "institution": "Universidad Tecnológica Nacional (UTN)",
+      "subject": "Álgebra Lineal y Geometría Analítica",
+      "officeHours": "Viernes 15:00 a 16:00 hs",
+      "meetUrl": "https://meet.google.com/xyz-uvwx-rst",
+      "color": "#06b6d4",
+      "icon": "fa-calculator",
+      "notes": "Consultas de ejercicios prácticos de las guías de estudio.",
+      "createdAt": 1788728903160
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-sample-1",
+      "title": "Guía de Métodos y Consejos de Estudio Académico",
+      "classroomId": "",
+      "category": "guia",
+      "author": "Campus Personal",
+      "tags": "Estudio, Productividad, Técnicas",
+      "readStatus": "reading",
+      "isFavorite": true,
+      "fileSize": "1.2 KB",
+      "fileName": "guia_consejos_estudio.pdf",
+      "notes": "Técnicas Pomodoro, método Feynman y organización de horarios para exámenes.",
+      "createdAt": 1788729003160,
+      "lastOpenedAt": 1788729003160
+    }
+  ],
+  "lastUpdated": 1788729003160
+}

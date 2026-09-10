@@ -1,0 +1,19 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Runtime backups and temp files
+data/campus_data.backup.json
+data/campus_data.tmp.*
+data/*.tmp
+data/*.log
+
+# Logs
+logs/
+*.log

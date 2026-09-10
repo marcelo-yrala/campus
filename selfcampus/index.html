@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Campus Personal - Homepage Académica</title>
+  <meta name="description" content="Dashboard y Homepage para gestionar accesos a aulas virtuales, materias de carreras y recordatorios de entregas y exámenes.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons CDN for rich icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Ambient background glow effects -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Auth & Login Screen Overlay -->
+  <div class="auth-overlay" id="authOverlay" style="display: none;">
+    <div class="auth-card glass-card">
+      <div class="auth-header">
+        <div class="auth-logo-badge">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <h2 class="auth-title" id="authTitle">Mi Campus Personal</h2>
+        <p class="auth-subtitle" id="authSubtitle">Ingresa tu contraseña para acceder a tus aulas, recordatorios y notas</p>
+      </div>
+
+      <!-- Error / Notice Alert -->
+      <div class="auth-alert" id="authAlert" style="display: none;">
+        <i class="fa-solid fa-circle-exclamation auth-alert-icon"></i>
+        <span id="authAlertText">Contraseña incorrecta</span>
+      </div>
+
+      <!-- 1. Formulario de Inicio de Sesión (Login) -->
+      <form id="loginForm" class="auth-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="loginPasswordInput">Contraseña de Acceso</label>
+          <div class="password-input-wrapper">
+            <i class="fa-solid fa-lock input-icon-left"></i>
+            <input type="password" id="loginPasswordInput" class="form-input form-input-with-left-icon" placeholder="••••••••" autocomplete="current-password" required autofocus>
+            <button type="button" class="btn-toggle-password" id="toggleLoginPassBtn" title="Mostrar/Ocultar contraseña">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-options-row">
+          <label class="custom-checkbox-label">
+            <input type="checkbox" id="loginRememberMe" checked>
+            <span class="custom-checkbox-mark"></span>
+            <span class="checkbox-text">Recordar sesión en este dispositivo</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-auth-submit" id="loginSubmitBtn">
+          <span class="btn-text"><i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión</span>
+          <span class="btn-spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...</span>
+        </button>
+      </form>
+
+      <!-- 2. Formulario de Primer Setup (Crear Contraseña Maestra) -->
+      <form id="setupForm" class="auth-form" onsubmit="return false;" style="display: none;">
+        <div class="auth-setup-banner">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div>
+            <strong>Configuración Inicial de Seguridad</strong>
+            <p>Define tu contraseña maestra para proteger tus datos al alojar en la nube o Alwaysdata.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="setupPasswordInput">Nueva Contraseña Maestra <span class="required">*</span></label>
+          <div class="password-input-wrapper">
+            <i class="fa-solid fa-key input-icon-left"></i>
+            <input type="password" id="setupPasswordInput" class="form-input form-input-with-left-icon" placeholder="Mínimo 4 caracteres" autocomplete="new-password" required>
+            <button type="button" class="btn-toggle-password" id="toggleSetupPassBtn" title="Mostrar/Ocultar">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="setupPasswordConfirmInput">Confirmar Contraseña <span class="required">*</span></label>
+          <div class="password-input-wrapper">
+            <i class="fa-solid fa-check-double input-icon-left"></i>
+            <input type="password" id="setupPasswordConfirmInput" class="form-input form-input-with-left-icon" placeholder="Repite la contraseña" autocomplete="new-password" required>
+            <button type="button" class="btn-toggle-password" id="toggleSetupPassConfirmBtn" title="Mostrar/Ocultar">
+              <i class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-options-row">
+          <label class="custom-checkbox-label">
+            <input type="checkbox" id="setupRememberMe" checked>
+            <span class="custom-checkbox-mark"></span>
+            <span class="checkbox-text">Recordar en este navegador (30 días)</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-auth-submit" id="setupSubmitBtn">
+          <span class="btn-text"><i class="fa-solid fa-check"></i> Guardar y Entrar al Campus</span>
+          <span class="btn-spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Guardando...</span>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <div class="auth-badge-row">
+          <span><i class="fa-solid fa-lock text-emerald"></i> Cifrado Scrypt / SHA-512</span>
+          <span>&bull;</span>
+          <span><i class="fa-solid fa-server text-accent"></i> Node.js Nativo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Top Header Bar -->
+    <header class="main-header glass-card">
+      <div class="header-left">
+        <div class="user-greeting">
+          <div class="greeting-subtitle" id="currentDateDisplay">Cargando fecha...</div>
+          <h1 class="greeting-title" id="greetingText">¡Hola de nuevo! 👋</h1>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <!-- Live Digital Clock -->
+        <div class="live-clock-badge">
+          <i class="fa-regular fa-clock clock-icon"></i>
+          <span id="liveClock">00:00:00</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Search Input -->
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="globalSearchInput" placeholder="Buscar materia, institución o tarea..." autocomplete="off">
+          <button id="clearSearchBtn" class="clear-search-btn" title="Limpiar búsqueda" style="display: none;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Sync Status Indicator Button -->
+        <button id="syncStatusBtn" class="sync-status-badge" title="Estado de Sincronización Multi-Navegador">
+          <span class="sync-dot"></span>
+          <span class="sync-text" id="syncStatusText">Conectando...</span>
+        </button>
+
+        <!-- Export & Share Center -->
+        <button id="exportModalOpenBtn" class="action-btn icon-btn" title="Centro de Exportación (Web Estática, Mail, WhatsApp)">
+          <i class="fa-solid fa-file-export"></i>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="action-btn icon-btn" title="Cambiar Tema (Oscuro / Claro)">
+          <i class="fa-solid fa-moon theme-icon" id="themeIcon"></i>
+        </button>
+
+        <!-- Backup & Settings -->
+        <button id="settingsModalOpenBtn" class="action-btn icon-btn" title="Configuración y Respaldos">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+
+        <!-- Cerrar Sesión Segura -->
+        <button id="logoutBtn" class="action-btn icon-btn btn-logout-header" title="Cerrar Sesión Segura" style="display: none;">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Institutional / Quick Links Bar -->
+    <section class="quick-links-bar glass-card">
+      <div class="quick-links-header">
+        <span class="quick-links-label"><i class="fa-solid fa-bolt text-accent"></i> Enlaces Rápidos</span>
+        <button class="btn-text-sm" id="manageQuickLinksBtn"><i class="fa-solid fa-plus"></i> Gestionar</button>
+      </div>
+      <div class="quick-links-list" id="quickLinksContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Main Content Layout with 2 Columns: Classrooms Grid & Side Reminders -->
+    <main class="dashboard-grid">
+      
+      <!-- Left / Main Column: Virtual Classrooms Section -->
+      <section class="classrooms-section">
+        <div class="section-header-row">
+          <div class="section-title-group">
+            <h2 class="section-title" id="sectionMainTitle">
+              <i class="fa-solid fa-graduation-cap text-accent"></i> Aulas Virtuales
+            </h2>
+            <span class="badge count-badge" id="classroomsCountBadge">0 materias</span>
+          </div>
+
+          <!-- View Mode Switch: Por Materia vs Por Institución vs Profesores vs Biblioteca PDF -->
+          <div class="view-switch-control" id="viewSwitchControl">
+            <button class="view-switch-btn active" id="viewModeSubjectsBtn" data-view="subjects" title="Ver tarjetas por cada materia individual">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Por Materia</span>
+            </button>
+            <button class="view-switch-btn" id="viewModeInstitutionsBtn" data-view="institutions" title="Ver portales generales y campus por institución">
+              <i class="fa-solid fa-building-columns"></i>
+              <span>Por Institución</span>
+            </button>
+            <button class="view-switch-btn" id="viewModeTeachersBtn" data-view="teachers" title="Directorio de profesores y datos de contacto">
+              <i class="fa-solid fa-chalkboard-user"></i>
+              <span>Profesores</span>
+            </button>
+            <button class="view-switch-btn" id="viewModePdfsBtn" data-view="pdfs" title="Biblioteca local de documentos, libros y apuntes PDF">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>Biblioteca PDF</span>
+            </button>
+          </div>
+
+          <div class="section-actions">
+            <!-- Day Filter Dropdown (Visible in Subjects view mode) -->
+            <div class="filter-dropdown-wrapper subjects-only-control" id="dayFilterDropdownWrapper">
+              <i class="fa-regular fa-calendar-days filter-icon"></i>
+              <select id="dayFilterSelect" class="styled-select" title="Filtrar materias por día de cursada">
+                <option value="ALL">Todos los días</option>
+                <option value="TODAY">⚡ Hoy</option>
+                <option value="lunes">Lunes</option>
+                <option value="martes">Martes</option>
+                <option value="miercoles">Miércoles</option>
+                <option value="jueves">Jueves</option>
+                <option value="viernes">Viernes</option>
+                <option value="sabado">Sábado</option>
+                <option value="domingo">Domingo</option>
+              </select>
+            </div>
+
+            <!-- Filter Dropdown (Carrera / Institución / Materia PDF) -->
+            <div class="filter-dropdown-wrapper" id="filterDropdownWrapper">
+              <i class="fa-solid fa-filter filter-icon"></i>
+              <select id="careerFilterSelect" class="styled-select">
+                <option value="ALL">Todas las carreras / áreas</option>
+              </select>
+            </div>
+
+            <!-- PDF Status Filter (Only visible in PDF view mode) -->
+            <div class="filter-dropdown-wrapper pdf-only-control" id="pdfStatusFilterWrapper" style="display: none;">
+              <i class="fa-solid fa-bookmark filter-icon"></i>
+              <select id="pdfStatusFilterSelect" class="styled-select">
+                <option value="ALL">Todos los estados</option>
+                <option value="favorites">⭐ Solo Favoritos</option>
+                <option value="pending">⏳ Pendiente de lectura</option>
+                <option value="reading">📖 En lectura</option>
+                <option value="completed">✅ Leído / Completado</option>
+              </select>
+            </div>
+
+            <!-- Add Button (Dynamic: Nueva Materia / Nueva Institución / Nuevo Profesor / Subir PDF) -->
+            <button id="addClassroomBtn" class="btn btn-primary">
+              <i class="fa-solid fa-plus"></i> <span id="addBtnLabel">Nueva Aula</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Day Filter Pills Bar (Subjects View Mode) -->
+        <div class="day-pills-bar" id="dayPillsContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Filter Pills Bar (Careers, Institutions, Teachers or PDF Categories) -->
+        <div class="career-pills-bar" id="careerPillsContainer">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- PDF Drag & Drop Zone (Visible only in PDF view mode) -->
+        <div class="pdf-dropzone glass-card" id="pdfDropzone" style="display: none;">
+          <input type="file" id="pdfFileInputDirect" accept=".pdf" style="display: none;" multiple>
+          <div class="pdf-dropzone-content">
+            <div class="pdf-dropzone-icon-ring">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <div class="pdf-dropzone-text">
+              <h4>Arrastra tus archivos PDF aquí o <button type="button" class="btn-link-upload" id="triggerPdfSelectBtn">explorar en tu equipo</button></h4>
+              <p>Organiza libros, resúmenes, guías de ejercicios y exámenes con visualizador integrado</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Classrooms / Institutions / Teachers / PDFs Grid Container -->
+        <div class="classrooms-grid" id="classroomsGrid">
+          <!-- Cards will be injected dynamically -->
+        </div>
+
+        <!-- Empty state message -->
+        <div class="empty-state glass-card" id="classroomsEmptyState" style="display: none;">
+          <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+          <h3 id="emptyStateTitle">No se encontraron aulas virtuales</h3>
+          <p id="emptyStateDesc">Puedes agregar una nueva materia o aula virtual usando el botón "+ Nueva Aula" o cambiar los filtros de búsqueda.</p>
+          <button class="btn btn-primary" id="emptyAddClassroomBtn"><i class="fa-solid fa-plus"></i> <span id="emptyAddBtnLabel">Agregar mi primera aula</span></button>
+        </div>
+      </section>
+
+      <!-- Right Column: Reminders, Exams, & Sticky Notes -->
+      <aside class="sidebar-section">
+        
+        <!-- Reminders Card -->
+        <div class="reminders-card glass-card">
+          <div class="card-header-flex">
+            <div class="section-title-group">
+              <h2 class="section-title"><i class="fa-solid fa-calendar-check text-warning"></i> Recordatorios</h2>
+              <span class="badge count-badge badge-warning" id="pendingRemindersBadge">0 pendientes</span>
+            </div>
+            <button id="addReminderBtn" class="btn btn-secondary btn-sm">
+              <i class="fa-solid fa-plus"></i> Agregar
+            </button>
+          </div>
+
+          <!-- Reminders Filter Tabs -->
+          <div class="tab-pills">
+            <button class="tab-pill active" data-filter="pending">Pendientes</button>
+            <button class="tab-pill" data-filter="today">Hoy / Próximos</button>
+            <button class="tab-pill" data-filter="completed">Completados</button>
+            <button class="tab-pill" data-filter="all">Todos</button>
+          </div>
+
+          <!-- Reminders List Container -->
+          <div class="reminders-list" id="remindersList">
+            <!-- Injected dynamically -->
+          </div>
+
+          <!-- Empty state for reminders -->
+          <div class="empty-state-sm" id="remindersEmptyState" style="display: none;">
+            <i class="fa-regular fa-circle-check empty-sm-icon text-success"></i>
+            <p>¡Todo al día! No tienes recordatorios pendientes en este filtro.</p>
+          </div>
+        </div>
+
+        <!-- Quick Sticky Notes Widget -->
+        <div class="notes-widget glass-card">
+          <div class="card-header-flex">
+            <h3 class="widget-title"><i class="fa-solid fa-note-sticky text-accent"></i> Bloc de Notas Rápido</h3>
+            <span class="save-indicator" id="notesSaveIndicator">Guardado</span>
+          </div>
+          <textarea id="quickNotesTextarea" class="quick-notes-input" placeholder="Apunta ideas rápidas, números de comisión, contraseñas temporales, enlaces o apuntes breves aquí..."></textarea>
+        </div>
+
+        <!-- Quick Stats Widget -->
+        <div class="stats-widget glass-card">
+          <div class="stat-box">
+            <span class="stat-number" id="statsClassroomsTotal">0</span>
+            <span class="stat-label">Materias Activas</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-box">
+            <span class="stat-number stat-danger" id="statsUrgentTotal">0</span>
+            <span class="stat-label">Urgentes / Exámenes</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-box">
+            <span class="stat-number stat-success" id="statsCompletedTotal">0</span>
+            <span class="stat-label">Completadas</span>
+          </div>
+        </div>
+
+      </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <p>Mi Campus Personal &bull; Homepage de Gestión Académica &bull; Datos seguros guardados en tu navegador.</p>
+    </footer>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Modal: Agregar / Editar Aula Virtual (Materia) -->
+  <div class="modal-overlay" id="classroomModal" style="display: none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3 id="classroomModalTitle"><i class="fa-solid fa-graduation-cap"></i> Nueva Materia / Aula</h3>
+        <button class="modal-close-btn" data-close="classroomModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      
+      <form id="classroomForm" class="modal-body">
+        <input type="hidden" id="classroomId">
+
+        <div class="form-group">
+          <label for="classroomName">Nombre de la Materia / Asignatura <span class="required">*</span></label>
+          <input type="text" id="classroomName" class="form-input" placeholder="Ej: Programación Web II, Álgebra Lineal..." required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="classroomInstitution">Institución / Universidad</label>
+            <input type="text" id="classroomInstitution" class="form-input" list="institutionSuggestions" placeholder="Ej: UTN, UBA, CFP N°6...">
+            <datalist id="institutionSuggestions">
+              <!-- Dynamically filled -->
+            </datalist>
+          </div>
+
+          <div class="form-group">
+            <label for="classroomCareer">Carrera / Área <span class="required">*</span></label>
+            <input type="text" id="classroomCareer" class="form-input" list="careerSuggestions" placeholder="Ej: Ingeniería, Diseño, Medicina..." required>
+            <datalist id="careerSuggestions">
+              <!-- Dynamically filled -->
+            </datalist>
+            <span class="text-muted" style="font-size: 0.74rem; display: block; margin-top: 3px;">
+              <i class="fa-solid fa-circle-info"></i> Puedes escribir un nombre nuevo o elegir de la lista.
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="classroomUrl">Enlace Directo al Aula (URL) <span class="required">*</span></label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-link input-icon"></i>
+              <input type="url" id="classroomUrl" class="form-input" placeholder="https://campus.miuniversidad.edu.ar/course/view.php?id=..." required>
+            </div>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="classroomPlatform">Plataforma</label>
+            <select id="classroomPlatform" class="form-input">
+              <option value="moodle">Moodle</option>
+              <option value="classroom">Classroom</option>
+              <option value="teams">Teams</option>
+              <option value="canvas">Canvas LMS</option>
+              <option value="blackboard">Blackboard</option>
+              <option value="zoom">Zoom / Meet</option>
+              <option value="custom">Web / Otra</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="classroomGoogleUrl">Google Classroom / Aula Adicional <span class="text-muted" style="font-size: 0.74rem; font-weight: normal;">(Opcional)</span></label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-chalkboard-user input-icon" style="color: #10b981;"></i>
+              <input type="url" id="classroomGoogleUrl" class="form-input" placeholder="https://classroom.google.com/c/...">
+            </div>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="classroomMeetingUrl">Videollamada (Meet / Zoom) <span class="text-muted" style="font-size: 0.74rem; font-weight: normal;">(Opcional)</span></label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-video input-icon" style="color: var(--secondary);"></i>
+              <input type="url" id="classroomMeetingUrl" class="form-input" placeholder="https://meet.google.com/abc-defg-hij">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="classroomDriveUrl">Carpeta de Recursos / Drive <span class="text-muted" style="font-size: 0.74rem; font-weight: normal;">(Opcional)</span></label>
+            <div class="input-with-icon">
+              <i class="fa-brands fa-google-drive input-icon" style="color: #10b981;"></i>
+              <input type="url" id="classroomDriveUrl" class="form-input" placeholder="https://drive.google.com/drive/folders/...">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <div class="label-with-hint">
+              <label for="classroomSchedule">Horario / Días de Cursada</label>
+              <span class="field-hint-text">Días y horario de cursada</span>
+            </div>
+            <!-- Interactive Day Chips -->
+            <div class="day-chips-wrapper" id="classroomDayChips">
+              <button type="button" class="day-chip-btn" data-day="lunes" title="Lunes">Lun</button>
+              <button type="button" class="day-chip-btn" data-day="martes" title="Martes">Mar</button>
+              <button type="button" class="day-chip-btn" data-day="miercoles" title="Miércoles">Mié</button>
+              <button type="button" class="day-chip-btn" data-day="jueves" title="Jueves">Jue</button>
+              <button type="button" class="day-chip-btn" data-day="viernes" title="Viernes">Vie</button>
+              <button type="button" class="day-chip-btn" data-day="sabado" title="Sábado">Sáb</button>
+              <button type="button" class="day-chip-btn" data-day="domingo" title="Domingo">Dom</button>
+            </div>
+            <div class="input-with-icon">
+              <i class="fa-regular fa-calendar-days input-icon" style="color: var(--accent);"></i>
+              <input type="text" id="classroomSchedule" class="form-input" placeholder="Ej: Lun y Mié 18:00 a 21:00">
+            </div>
+          </div>
+          <div class="form-group flex-1">
+            <label for="classroomTeacher">Profesor / Comisión</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-chalkboard-user input-icon" style="color: var(--secondary);"></i>
+              <input type="text" id="classroomTeacher" class="form-input" list="teacherSuggestions" placeholder="Ej: Prof. García - Com. 302">
+            </div>
+            <datalist id="teacherSuggestions"></datalist>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="classroomColor">Color Distintivo</label>
+            <div class="color-picker-group">
+              <input type="color" id="classroomColor" value="#6366f1" class="color-picker-input">
+              <div class="color-presets" id="colorPresets">
+                <span class="color-dot" style="background-color: #6366f1;" data-color="#6366f1"></span>
+                <span class="color-dot" style="background-color: #06b6d4;" data-color="#06b6d4"></span>
+                <span class="color-dot" style="background-color: #10b981;" data-color="#10b981"></span>
+                <span class="color-dot" style="background-color: #f59e0b;" data-color="#f59e0b"></span>
+                <span class="color-dot" style="background-color: #ef4444;" data-color="#ef4444"></span>
+                <span class="color-dot" style="background-color: #ec4899;" data-color="#ec4899"></span>
+                <span class="color-dot" style="background-color: #8b5cf6;" data-color="#8b5cf6"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="classroomIcon">Icono</label>
+            <select id="classroomIcon" class="form-input">
+              <option value="fa-graduation-cap">🎓 Birrete / General</option>
+              <option value="fa-laptop-code">💻 Informática / Código</option>
+              <option value="fa-calculator">🔢 Matemáticas / Álgebra</option>
+              <option value="fa-flask">🧪 Ciencias / Laboratorio</option>
+              <option value="fa-scale-balanced">⚖️ Derecho / Leyes</option>
+              <option value="fa-heart-pulse">🩺 Medicina / Salud</option>
+              <option value="fa-chart-pie">📊 Economía / Negocios</option>
+              <option value="fa-palette">🎨 Arte / Diseño</option>
+              <option value="fa-book-open">📖 Lectura / Humanidades</option>
+              <option value="fa-globe">🌍 Idiomas / Geografía</option>
+              <option value="fa-atom">⚛️ Física / Ingeniería</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="classroomNotes">Notas / Clave de Matriculación / Sala</label>
+          <textarea id="classroomNotes" class="form-input" rows="2" placeholder="Ej: Clave de acceso: 2026SISTEMAS. Enlace de Meet adicional: ..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-close="classroomModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="saveClassroomBtn">Guardar Materia</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Modal: Agregar / Editar Institución (Campus General) -->
+  <div class="modal-overlay" id="institutionModal" style="display: none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3 id="institutionModalTitle"><i class="fa-solid fa-building-columns"></i> Nueva Institución / Campus General</h3>
+        <button class="modal-close-btn" data-close="institutionModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="institutionForm" class="modal-body">
+        <input type="hidden" id="institutionId">
+
+        <div class="form-group">
+          <label for="institutionName">Nombre de la Institución / Universidad / Escuela <span class="required">*</span></label>
+          <input type="text" id="institutionName" class="form-input" placeholder="Ej: Universidad Tecnológica Nacional (UTN), CFP 6..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="institutionCampusUrl">Enlace Principal al Campus Virtual (URL) <span class="required">*</span></label>
+          <div class="input-with-icon">
+            <i class="fa-solid fa-globe input-icon"></i>
+            <input type="url" id="institutionCampusUrl" class="form-input" placeholder="https://campus.miinstitucion.edu.ar" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="institutionPortalUrl">Enlace al Portal Administrativo / SIU Guaraní (Opcional)</label>
+          <div class="input-with-icon">
+            <i class="fa-solid fa-user-gear input-icon"></i>
+            <input type="url" id="institutionPortalUrl" class="form-input" placeholder="https://guarani.miinstitucion.edu.ar">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="institutionColor">Color Institucional</label>
+            <div class="color-picker-group">
+              <input type="color" id="institutionColor" value="#6366f1" class="color-picker-input">
+              <div class="color-presets" id="instColorPresets">
+                <span class="color-dot" style="background-color: #6366f1;" data-color="#6366f1"></span>
+                <span class="color-dot" style="background-color: #06b6d4;" data-color="#06b6d4"></span>
+                <span class="color-dot" style="background-color: #10b981;" data-color="#10b981"></span>
+                <span class="color-dot" style="background-color: #f59e0b;" data-color="#f59e0b"></span>
+                <span class="color-dot" style="background-color: #ef4444;" data-color="#ef4444"></span>
+                <span class="color-dot" style="background-color: #8b5cf6;" data-color="#8b5cf6"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="institutionIcon">Icono</label>
+            <select id="institutionIcon" class="form-input">
+              <option value="fa-building-columns">🏛️ Universidad / Facultad</option>
+              <option value="fa-school">🏫 Escuela / Instituto</option>
+              <option value="fa-graduation-cap">🎓 Centro de Posgrados</option>
+              <option value="fa-chalkboard-user">👨‍🏫 Plataforma de Capacitación</option>
+              <option value="fa-laptop-code">💻 Academia Tecnológica</option>
+              <option value="fa-globe">🌐 Plataforma Global</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="institutionNotes">Credenciales de Acceso / Notas Institucionales</label>
+          <textarea id="institutionNotes" class="form-input" rows="2" placeholder="Ej: Usuario: Legajo 10928, DNI sin puntos. Soporte: soporte@campus.edu"></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-close="institutionModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="saveInstitutionBtn">Guardar Institución</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Modal: Agregar / Editar Profesor / Contacto Docente -->
+  <div class="modal-overlay" id="teacherModal" style="display: none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3 id="teacherModalTitle"><i class="fa-solid fa-chalkboard-user"></i> Nuevo Profesor / Contacto</h3>
+        <button class="modal-close-btn" data-close="teacherModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="teacherForm" class="modal-body">
+        <input type="hidden" id="teacherId">
+
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="teacherName">Nombre y Apellido del Docente <span class="required">*</span></label>
+            <input type="text" id="teacherName" class="form-input" placeholder="Ej: Prof. Ezequiel Taboada, Dra. Gómez..." required>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="teacherInstitution">Institución</label>
+            <input type="text" id="teacherInstitution" class="form-input" list="teacherInstitutionSuggestions" placeholder="Ej: UTN, CFP 6...">
+            <datalist id="teacherInstitutionSuggestions"></datalist>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="teacherEmail">Correo Electrónico de Contacto</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-envelope input-icon" style="color: var(--accent);"></i>
+              <input type="email" id="teacherEmail" class="form-input" placeholder="profesor@institucion.edu.ar">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="teacherPhone">Teléfono / WhatsApp <span class="text-muted" style="font-size: 0.78rem;">(Opcional)</span></label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-phone input-icon" style="color: var(--success);"></i>
+              <input type="text" id="teacherPhone" class="form-input" placeholder="Ej: +54 9 11 1234-5678">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="teacherSubject">Materia / Cátedra que dicta</label>
+            <input type="text" id="teacherSubject" class="form-input" list="teacherSubjectSuggestions" placeholder="Ej: Programación Web, Álgebra, IA...">
+            <datalist id="teacherSubjectSuggestions"></datalist>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="teacherOfficeHours">Horario de Consultas</label>
+            <input type="text" id="teacherOfficeHours" class="form-input" placeholder="Ej: Jueves 17:30 a 18:30 hs">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="teacherMeetUrl">Enlace de Consulta Virtual (Meet / Zoom) <span class="text-muted" style="font-size: 0.78rem;">(Opcional)</span></label>
+          <div class="input-with-icon">
+            <i class="fa-solid fa-video input-icon" style="color: var(--secondary);"></i>
+            <input type="url" id="teacherMeetUrl" class="form-input" placeholder="https://meet.google.com/xyz-uvwx-rst o https://zoom.us/j/...">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="teacherColor">Color Distintivo</label>
+            <div class="color-picker-group">
+              <input type="color" id="teacherColor" value="#6366f1" class="color-picker-input">
+              <div class="color-presets" id="teacherColorPresets">
+                <span class="color-dot" style="background-color: #6366f1;" data-color="#6366f1"></span>
+                <span class="color-dot" style="background-color: #06b6d4;" data-color="#06b6d4"></span>
+                <span class="color-dot" style="background-color: #10b981;" data-color="#10b981"></span>
+                <span class="color-dot" style="background-color: #f59e0b;" data-color="#f59e0b"></span>
+                <span class="color-dot" style="background-color: #ef4444;" data-color="#ef4444"></span>
+                <span class="color-dot" style="background-color: #ec4899;" data-color="#ec4899"></span>
+                <span class="color-dot" style="background-color: #8b5cf6;" data-color="#8b5cf6"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="teacherIcon">Icono / Avatar</label>
+            <select id="teacherIcon" class="form-input">
+              <option value="fa-chalkboard-user">👨‍🏫 Profesor / Docente</option>
+              <option value="fa-user-tie">👔 Docente / Titular</option>
+              <option value="fa-user-graduate">🎓 Investigador / Magíster</option>
+              <option value="fa-laptop-code">💻 Docente Técnico / Dev</option>
+              <option value="fa-flask">🧪 Docente Ciencias / Lab</option>
+              <option value="fa-calculator">🔢 Docente Matemáticas</option>
+              <option value="fa-book-open">📖 Docente Humanidades</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="teacherNotes">Notas / Pautas de Comunicación</label>
+          <textarea id="teacherNotes" class="form-input" rows="2" placeholder="Ej: Indicar en el asunto [COMISIÓN A - APELLIDO]. Responder consultas dentro de las 48hs hábiles."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-close="teacherModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="saveTeacherBtn">Guardar Profesor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Modal: Agregar / Editar Recordatorio -->
+  <div class="modal-overlay" id="reminderModal" style="display: none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3 id="reminderModalTitle"><i class="fa-solid fa-calendar-plus"></i> Nuevo Recordatorio</h3>
+        <button class="modal-close-btn" data-close="reminderModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="reminderForm" class="modal-body">
+        <input type="hidden" id="reminderId">
+
+        <div class="form-group">
+          <label for="reminderTitle">Título de la Tarea / Examen / Recordatorio <span class="required">*</span></label>
+          <input type="text" id="reminderTitle" class="form-input" placeholder="Ej: Entrega TP 1 de Base de Datos, Parcial 1..." required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reminderClassroomId">Materia Asociada (Opcional)</label>
+            <select id="reminderClassroomId" class="form-input">
+              <option value="">-- General / Sin materia --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reminderPriority">Prioridad</label>
+            <select id="reminderPriority" class="form-input">
+              <option value="high">🔴 Alta / Urgente / Examen</option>
+              <option value="medium" selected>🟡 Media / Entrega regular</option>
+              <option value="low">🟢 Baja / Lectura / Opcional</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reminderDueDate">Fecha Límite <span class="required">*</span></label>
+            <input type="date" id="reminderDueDate" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reminderDueTime">Hora Límite</label>
+            <input type="time" id="reminderDueTime" class="form-input" value="23:59">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reminderDetails">Detalles / Instrucciones</label>
+          <textarea id="reminderDetails" class="form-input" rows="2" placeholder="Ej: Subir en formato PDF al campus antes de las 23:59..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-close="reminderModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="saveReminderBtn">Guardar Recordatorio</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Modal: Subir / Editar Documento PDF -->
+  <div class="modal-overlay" id="pdfModal" style="display: none;">
+    <div class="modal-box glass-card modal-lg">
+      <div class="modal-header">
+        <h3 id="pdfModalTitle"><i class="fa-solid fa-file-pdf text-danger"></i> Subir Documento PDF</h3>
+        <button class="modal-close-btn" data-close="pdfModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="pdfForm" class="modal-body">
+        <input type="hidden" id="pdfId">
+        <input type="hidden" id="pdfFileBase64">
+        <input type="hidden" id="pdfFileName">
+        <input type="hidden" id="pdfFileSize">
+
+        <!-- File Upload Area (Only shown or required when creating new) -->
+        <div class="form-group" id="pdfUploadFieldGroup">
+          <label>Archivo PDF <span class="required">*</span></label>
+          <div class="pdf-modal-dropzone" id="pdfModalDropzone">
+            <input type="file" id="pdfFileInputModal" accept=".pdf" style="display: none;">
+            <i class="fa-solid fa-file-arrow-up modal-drop-icon"></i>
+            <div class="modal-drop-info">
+              <span class="modal-drop-title" id="pdfSelectedFileLabel">Haz clic o arrastra un archivo PDF aquí</span>
+              <span class="modal-drop-hint" id="pdfSelectedFileSizeHint">Formatos soportados: .pdf (hasta 50 MB)</span>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="selectPdfFileBtn">Seleccionar PDF</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pdfTitle">Título del Documento / Guía / Libro <span class="required">*</span></label>
+          <input type="text" id="pdfTitle" class="form-input" placeholder="Ej: Guía Práctica 1 - Normalización y Álgebra Relacional" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="pdfClassroomId">Materia / Asignatura Vinculada</label>
+            <select id="pdfClassroomId" class="form-input">
+              <option value="">-- General / Transversal / Sin materia --</option>
+              <!-- Dynamically populated with classrooms -->
+            </select>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="pdfCategory">Tipo / Categoría de Documento</label>
+            <select id="pdfCategory" class="form-input">
+              <option value="guia">📑 Guía de Ejercicios / Práctica</option>
+              <option value="apunte">📝 Apunte de Cátedra / Clase</option>
+              <option value="libro">📖 Libro de Texto / Manual</option>
+              <option value="tp">💻 Trabajo Práctico / Proyecto</option>
+              <option value="examen">📋 Examen Modelo / Parcial</option>
+              <option value="resumen">⚡ Resumen / Síntesis</option>
+              <option value="otro">📁 Otro Documento</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="pdfAuthor">Autor / Docente / Cátedra <span class="text-muted" style="font-size: 0.74rem;">(Opcional)</span></label>
+            <input type="text" id="pdfAuthor" class="form-input" placeholder="Ej: Dra. Elena Gómez, Prof. Rossi...">
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="pdfReadStatus">Estado de Lectura</label>
+            <select id="pdfReadStatus" class="form-input">
+              <option value="pending">⏳ Pendiente de lectura</option>
+              <option value="reading">📖 En lectura / En estudio</option>
+              <option value="completed">✅ Leído / Completado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pdfTags">Etiquetas / Palabras Clave <span class="text-muted" style="font-size: 0.74rem;">(Separadas por comas)</span></label>
+          <input type="text" id="pdfTags" class="form-input" placeholder="Ej: SQL, Base de Datos, 1FN, Consultas">
+        </div>
+
+        <div class="form-group">
+          <label for="pdfNotes">Notas Personales / Resumen del Documento</label>
+          <textarea id="pdfNotes" class="form-input" rows="2" placeholder="Apunta conceptos clave, páginas importantes o dudas a consultar con el profesor..."></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="custom-checkbox-label">
+            <input type="checkbox" id="pdfIsFavorite">
+            <span class="custom-checkbox-mark"></span>
+            <span>⭐ Marcar como Documento Favorito / Destacado</span>
+          </label>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-close="pdfModal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="savePdfBtn">Guardar en Biblioteca</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Modal: Visor de PDF Integrado & Lector de Estudio -->
+  <div class="modal-overlay modal-overlay-reader" id="pdfReaderModal" style="display: none;">
+    <div class="reader-container glass-card">
+      <!-- Reader Header Bar -->
+      <div class="reader-header">
+        <div class="reader-header-left">
+          <button type="button" class="reader-action-btn" id="readerBackBtn" title="Cerrar Lector">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <div class="reader-title-group">
+            <h3 class="reader-title" id="readerDocTitle">Cargando documento...</h3>
+            <div class="reader-meta-pills" id="readerMetaPills">
+              <span class="badge" id="readerCategoryBadge">Categoría</span>
+              <span class="badge" id="readerSubjectBadge">Materia</span>
+              <span class="badge badge-subtle" id="readerSizeBadge">0 MB</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reader-header-right">
+          <!-- Status Selector in Reader -->
+          <div class="reader-status-control">
+            <label for="readerStatusSelect"><i class="fa-solid fa-bookmark"></i></label>
+            <select id="readerStatusSelect" class="styled-select select-sm" title="Cambiar estado de lectura">
+              <option value="pending">⏳ Pendiente</option>
+              <option value="reading">📖 En lectura</option>
+              <option value="completed">✅ Leído</option>
+            </select>
+          </div>
+
+          <!-- Favorite Toggle Button in Reader -->
+          <button type="button" class="reader-action-btn" id="readerFavoriteBtn" title="Marcar como favorito">
+            <i class="fa-regular fa-star"></i>
+          </button>
+
+          <!-- Toggle Study Notes Drawer -->
+          <button type="button" class="reader-action-btn active-notes" id="readerToggleNotesBtn" title="Mostrar/Ocultar Bloc de Notas de Estudio">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span class="btn-badge-text">Apuntes</span>
+          </button>
+
+          <div class="reader-btn-divider"></div>
+
+          <!-- Open in new tab -->
+          <a href="#" target="_blank" rel="noopener noreferrer" class="reader-action-btn" id="readerOpenExternalBtn" title="Abrir en pestaña nueva">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+
+          <!-- Download PDF -->
+          <a href="#" download class="reader-action-btn" id="readerDownloadBtn" title="Descargar archivo PDF">
+            <i class="fa-solid fa-download"></i>
+          </a>
+
+          <!-- Fullscreen Toggle -->
+          <button type="button" class="reader-action-btn" id="readerFullscreenBtn" title="Pantalla completa">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+
+          <!-- Close Modal -->
+          <button type="button" class="reader-action-btn reader-close-btn" data-close="pdfReaderModal" title="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reader Body Layout (Viewer + Study Notes Split) -->
+      <div class="reader-body">
+        <!-- Main PDF Iframe Frame -->
+        <div class="reader-viewer-pane" id="readerViewerPane">
+          <iframe id="pdfViewerFrame" class="pdf-viewer-frame" src="" title="Visor de PDF"></iframe>
+          <div class="reader-loading-overlay" id="readerLoadingOverlay">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <span>Cargando documento PDF...</span>
+          </div>
+        </div>
+
+        <!-- Side Study Notes Pane -->
+        <aside class="reader-notes-drawer" id="readerNotesDrawer">
+          <div class="notes-drawer-header">
+            <h4><i class="fa-solid fa-feather text-accent"></i> Notas de Estudio</h4>
+            <span class="save-indicator" id="readerNotesSaveIndicator">Guardado</span>
+          </div>
+          <div class="notes-drawer-body">
+            <textarea id="readerNotesTextarea" class="reader-notes-input" placeholder="Toma notas, apunta conceptos o fórmulas clave mientras estudias este documento..."></textarea>
+          </div>
+          <div class="notes-drawer-footer">
+            <button type="button" class="btn btn-secondary btn-sm" id="copyReaderNotesToGlobalBtn" title="Copiar estos apuntes al Bloc de Notas general">
+              <i class="fa-solid fa-copy"></i> Copiar a Notas Rápidas
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Modal: Gestionar Enlaces Rápidos -->
+  <div class="modal-overlay" id="quickLinkModal" style="display: none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-link"></i> Enlaces Rápidos del Campus</h3>
+        <button class="modal-close-btn" data-close="quickLinkModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="quickLinkForm" class="quick-link-add-form">
+          <div class="form-row">
+            <div class="form-group flex-2">
+              <label for="qlTitle">Nombre</label>
+              <input type="text" id="qlTitle" class="form-input" placeholder="Ej: Correo Institucional" required>
+            </div>
+            <div class="form-group flex-1">
+              <label for="qlIcon">Icono</label>
+              <select id="qlIcon" class="form-input">
+                <option value="fa-envelope">✉️ Correo</option>
+                <option value="fa-hard-drive">💾 Drive / Archivos</option>
+                <option value="fa-calendar-days">📅 Calendario</option>
+                <option value="fa-book">📚 Biblioteca</option>
+                <option value="fa-building-columns">🏛️ Portal / SIU</option>
+                <option value="fa-comments">💬 Mensajes</option>
+                <option value="fa-globe">🌐 Web</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="qlUrl">Enlace (URL)</label>
+            <input type="url" id="qlUrl" class="form-input" placeholder="https://..." required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-plus"></i> Agregar Enlace</button>
+        </form>
+
+        <hr class="modal-divider">
+
+        <h4 class="subheading">Enlaces Configurados</h4>
+        <div class="quick-links-management-list" id="quickLinksManagementList">
+          <!-- Dynamically populated with delete buttons -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Modal: Configuración y Backup (Importar/Exportar) -->
+  <div class="modal-overlay" id="settingsModal" style="display: none;">
+    <div class="modal-box glass-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-sliders"></i> Configuración y Respaldo</h3>
+        <button class="modal-close-btn" data-close="settingsModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="settings-section">
+          <h4><i class="fa-solid fa-user"></i> Personalización</h4>
+          <div class="form-group">
+            <label for="userNameInput">Tu Nombre (para el saludo)</label>
+            <input type="text" id="userNameInput" class="form-input" placeholder="Ej: Estudiante">
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <h4><i class="fa-solid fa-shield-halved text-accent"></i> Seguridad y Acceso (Contraseña)</h4>
+            <span class="badge" id="settingsAuthStatusBadge">Protegido</span>
+          </div>
+          <p class="settings-help">
+            Protege tus aulas, notas, profesores y biblioteca PDF contra accesos no autorizados al alojar en la nube o Alwaysdata.
+          </p>
+
+          <!-- Toggle Activar/Desactivar Contraseña -->
+          <div class="form-group checkbox-group" style="margin-bottom: 14px;">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="authEnabledToggle" checked>
+              <span class="custom-checkbox-mark"></span>
+              <strong>Exigir contraseña para acceder a la aplicación</strong>
+            </label>
+          </div>
+
+          <!-- Sub-panel Cambiar Contraseña -->
+          <div class="auth-change-box" id="authChangeBox">
+            <button type="button" class="btn btn-secondary btn-sm" id="toggleChangePassSectionBtn">
+              <i class="fa-solid fa-key"></i> Cambiar Contraseña Maestra
+            </button>
+
+            <div id="changePasswordFormContainer" class="change-pass-form" style="display: none; margin-top: 14px;">
+              <div class="form-group">
+                <label for="currentPasswordInput">Contraseña Actual <span class="required">*</span></label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="currentPasswordInput" class="form-input" placeholder="Tu contraseña actual">
+                  <button type="button" class="btn-toggle-password" data-target="currentPasswordInput"><i class="fa-solid fa-eye"></i></button>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label for="newPasswordInput">Nueva Contraseña <span class="required">*</span></label>
+                  <div class="password-input-wrapper">
+                    <input type="password" id="newPasswordInput" class="form-input" placeholder="Mínimo 4 caracteres">
+                    <button type="button" class="btn-toggle-password" data-target="newPasswordInput"><i class="fa-solid fa-eye"></i></button>
+                  </div>
+                </div>
+                <div class="form-group flex-1">
+                  <label for="confirmNewPasswordInput">Confirmar Nueva Contraseña <span class="required">*</span></label>
+                  <div class="password-input-wrapper">
+                    <input type="password" id="confirmNewPasswordInput" class="form-input" placeholder="Repite la nueva contraseña">
+                    <button type="button" class="btn-toggle-password" data-target="confirmNewPasswordInput"><i class="fa-solid fa-eye"></i></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-group-row" style="margin-top: 10px;">
+                <button type="button" class="btn btn-primary btn-sm" id="submitChangePassBtn">
+                  <i class="fa-solid fa-floppy-disk"></i> Guardar Nueva Contraseña
+                </button>
+                <button type="button" class="btn btn-ghost btn-sm" id="cancelChangePassBtn">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h4><i class="fa-solid fa-arrows-rotate"></i> Sincronización Multi-Navegador</h4>
+          <p class="settings-help">Permite usar la misma información de forma compartida y en tiempo real en Google Chrome, Microsoft Edge, Mozilla Firefox, Brave y otros navegadores.</p>
+          <div class="sync-status-box">
+            <div class="sync-status-header">
+              <div class="sync-status-main" id="modalSyncStatusMain">
+                <span class="sync-dot"></span>
+                <span id="modalSyncStatusTitle">Comprobando conexión con servidor local...</span>
+              </div>
+              <button type="button" id="retrySyncBtn" class="btn btn-sm btn-secondary">
+                <i class="fa-solid fa-rotate"></i> Reintentar
+              </button>
+            </div>
+            <div class="sync-status-body">
+              <p id="modalSyncStatusDesc" class="sync-status-desc">
+                Para sincronizar entre todos tus navegadores, ejecuta el archivo <code>iniciar.bat</code> o corre <code>npm start</code> en la carpeta del proyecto.
+              </p>
+              <div class="sync-url-info">
+                <span class="sync-url-label"><i class="fa-solid fa-globe"></i> URL Central:</span>
+                <code class="sync-url-code" id="syncUrlDisplay">http://localhost:3000</code>
+                <button type="button" class="btn-copy-url" id="copySyncUrlBtn" title="Copiar URL para configurar en tus navegadores">
+                  <i class="fa-regular fa-copy"></i> Copiar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <h4><i class="fa-solid fa-bell text-accent"></i> Resumen Diario Automático (Correo y Telegram)</h4>
+            <span class="badge" id="notifStatusBadge">Inactivo</span>
+          </div>
+          <p class="settings-help">
+            Recibe cada mañana temprano en tu correo o en tu Telegram el resumen con tus clases del día, materias, horarios, enlaces directos (Aula, Classroom, Meet, Drive) y recordatorios pendientes.
+          </p>
+
+          <!-- Toggle Activar/Desactivar -->
+          <div class="form-group checkbox-group" style="margin-bottom: 14px;">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="notifEnabledToggle">
+              <span class="custom-checkbox-mark"></span>
+              <strong>Activar envío automático cada mañana</strong>
+            </label>
+          </div>
+
+          <div id="notifConfigFields" class="notif-config-container" style="display: none;">
+            <!-- Selector de Canal -->
+            <div class="form-group">
+              <label class="notif-field-label">Medio de Notificación:</label>
+              <div class="notif-channel-pills" id="notifChannelPills">
+                <button type="button" class="notif-channel-pill" data-channel="email">
+                  <i class="fa-solid fa-envelope"></i> Solo Correo
+                </button>
+                <button type="button" class="notif-channel-pill" data-channel="telegram">
+                  <i class="fa-solid fa-paper-plane"></i> Solo Telegram
+                </button>
+                <button type="button" class="notif-channel-pill active" data-channel="both">
+                  <i class="fa-solid fa-bolt"></i> Ambos (Correo + Telegram)
+                </button>
+              </div>
+              <input type="hidden" id="notifChannelVal" value="both">
+            </div>
+
+            <!-- Horario de Envío -->
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="notifTimeInput">Hora de Envío Matutino</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-clock input-icon" style="color: var(--accent);"></i>
+                  <input type="time" id="notifTimeInput" class="form-input" value="07:00">
+                </div>
+              </div>
+              <div class="form-group flex-1">
+                <label>Último Envío Registrado</label>
+                <input type="text" id="notifLastSentDisplay" class="form-input" value="Ninguno" readonly style="opacity: 0.75; cursor: default;">
+              </div>
+            </div>
+
+            <!-- Bloque Correo Electrónico (SMTP) -->
+            <div class="notif-credentials-card" id="notifEmailCard">
+              <div class="notif-credentials-header">
+                <div class="notif-credentials-title">
+                  <i class="fa-solid fa-envelope" style="color: #6366f1;"></i>
+                  <span>Configuración de Correo Electrónico (SMTP)</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-xs" id="testEmailBtn" title="Enviar correo de prueba">
+                  <i class="fa-solid fa-flask"></i> 🧪 Probar Correo
+                </button>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label for="notifEmailService">Proveedor de Correo</label>
+                  <select id="notifEmailService" class="form-input">
+                    <option value="gmail" selected>Gmail (Recomendado)</option>
+                    <option value="outlook">Outlook / Hotmail / Office 365</option>
+                    <option value="custom">Servidor SMTP Personalizado</option>
+                  </select>
+                </div>
+                <div class="form-group flex-1">
+                  <label for="notifEmailUser">Tu Correo Remitente <span class="required">*</span></label>
+                  <input type="email" id="notifEmailUser" class="form-input" placeholder="ejemplo@gmail.com">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-1">
+                  <label for="notifEmailPass">Contraseña de Aplicación <span class="required">*</span></label>
+                  <div class="password-input-wrapper">
+                    <input type="password" id="notifEmailPass" class="form-input" placeholder="Clave de aplicación (16 letras)">
+                    <button type="button" class="btn-toggle-password" id="toggleEmailPassBtn" title="Mostrar/Ocultar">
+                      <i class="fa-solid fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group flex-1">
+                  <label for="notifEmailTo">Correo Destinatario <span class="text-muted" style="font-size: 0.76rem;">(Opcional si es el mismo)</span></label>
+                  <input type="email" id="notifEmailTo" class="form-input" placeholder="Dejar en blanco para auto-envío">
+                </div>
+              </div>
+
+              <!-- Host & Port Avanzados -->
+              <details class="notif-advanced-details" id="notifEmailAdvanced">
+                <summary><i class="fa-solid fa-gear"></i> Opciones de servidor SMTP avanzado</summary>
+                <div class="form-row" style="margin-top: 10px;">
+                  <div class="form-group flex-2">
+                    <label for="notifEmailHost">Servidor SMTP Host</label>
+                    <input type="text" id="notifEmailHost" class="form-input" value="smtp.gmail.com">
+                  </div>
+                  <div class="form-group flex-1">
+                    <label for="notifEmailPort">Puerto</label>
+                    <input type="number" id="notifEmailPort" class="form-input" value="465">
+                  </div>
+                  <div class="form-group flex-1" style="display: flex; align-items: flex-end; padding-bottom: 8px;">
+                    <label class="custom-checkbox-label">
+                      <input type="checkbox" id="notifEmailSecure" checked>
+                      <span class="custom-checkbox-mark"></span>
+                      <span>SSL/TLS</span>
+                    </label>
+                  </div>
+                </div>
+              </details>
+
+              <div class="notif-helper-callout">
+                <i class="fa-solid fa-circle-info"></i>
+                <div>
+                  <strong>¿Cómo generar la Contraseña de Aplicación de Gmail?</strong>
+                  <p>En tu Cuenta de Google > <em>Seguridad</em> > activa <em>Verificación en 2 pasos</em> > entra a <em>Contraseñas de aplicaciones</em> > crea una llamada "Campus" y copia los 16 caracteres.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bloque Telegram Bot -->
+            <div class="notif-credentials-card" id="notifTelegramCard">
+              <div class="notif-credentials-header">
+                <div class="notif-credentials-title">
+                  <i class="fa-solid fa-paper-plane" style="color: #06b6d4;"></i>
+                  <span>Configuración de Telegram Bot</span>
+                </div>
+                <button type="button" class="btn btn-secondary btn-xs" id="testTelegramBtn" title="Enviar mensaje de prueba a Telegram">
+                  <i class="fa-solid fa-flask"></i> 🧪 Probar Telegram
+                </button>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group flex-2">
+                  <label for="notifTelegramToken">Bot Token de Telegram <span class="required">*</span></label>
+                  <input type="text" id="notifTelegramToken" class="form-input" placeholder="Ej: 7123456789:AAFxAbc12345_xyz...">
+                </div>
+                <div class="form-group flex-1">
+                  <label for="notifTelegramChatId">Tu Chat ID Personal <span class="required">*</span></label>
+                  <input type="text" id="notifTelegramChatId" class="form-input" placeholder="Ej: 123456789">
+                </div>
+              </div>
+
+              <details class="notif-guide-details">
+                <summary><i class="fa-solid fa-circle-question"></i> Guía rápida de 1 minuto para crear tu Bot en Telegram</summary>
+                <div class="notif-guide-content">
+                  <ol>
+                    <li>Abre Telegram y busca el bot oficial <strong>@BotFather</strong>.</li>
+                    <li>Envía <code>/newbot</code>, dale un nombre y un usuario (ej: <code>MiResumenCampusBot</code>). Te dará tu <strong>Bot Token</strong>.</li>
+                    <li>Abre tu nuevo bot y pulsa <strong>Iniciar (/start)</strong>.</li>
+                    <li>Para saber tu <strong>Chat ID</strong> numérico, abre el bot <strong>@userinfobot</strong> en Telegram y pulsa Iniciar. Te dirá tu ID personal.</li>
+                  </ol>
+                </div>
+              </details>
+            </div>
+
+            <!-- Acciones de prueba integradas -->
+            <div class="notif-actions-bar">
+              <button type="button" class="btn btn-secondary btn-sm" id="testBothBtn">
+                <i class="fa-solid fa-bolt"></i> Probar Envío (Canales activos)
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="sendNowBtn">
+                <i class="fa-solid fa-paper-plane"></i> 🚀 Enviar Resumen de Hoy Ahora
+              </button>
+            </div>
+
+            <!-- Callout de Programación en Windows -->
+            <div class="notif-task-callout">
+              <i class="fa-solid fa-desktop" style="color: var(--accent);"></i>
+              <div>
+                <strong>Ejecución Automática en Windows (Task Scheduler)</strong>
+                <p>
+                  Para que tu PC envíe el resumen aunque esté apagada de noche y la prendas a la mañana, ejecuta el script <code>programar_resumen_windows.bat</code> incluido en el proyecto.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h4><i class="fa-solid fa-file-export"></i> Exportar y Compartir</h4>
+          <p class="settings-help">Genera una página web estática lista para subir a cualquier hosting tradicional o copia resúmenes en formato enriquecido para enviar por correo o WhatsApp.</p>
+          <div class="btn-group-row">
+            <button type="button" id="openExportFromSettingsBtn" class="btn btn-primary">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir Centro de Exportación
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h4><i class="fa-solid fa-database"></i> Copia de Seguridad</h4>
+          <p class="settings-help">Exporta todas tus aulas, instituciones, recordatorios y notas a un archivo JSON para tener un respaldo o moverlos a otra computadora.</p>
+          <div class="btn-group-row">
+            <button id="exportDataBtn" class="btn btn-secondary">
+              <i class="fa-solid fa-download"></i> Exportar Respaldo (.json)
+            </button>
+            <label class="btn btn-secondary file-upload-label">
+              <i class="fa-solid fa-upload"></i> Importar Respaldo
+              <input type="file" id="importDataInput" accept=".json" style="display: none;">
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section danger-zone">
+          <h4><i class="fa-solid fa-triangle-exclamation"></i> Zona de Restablecimiento</h4>
+          <p class="settings-help">Puedes cargar datos de ejemplo académicos para probar el sistema o reiniciar la base de datos limpia.</p>
+          <div class="btn-group-row">
+            <button id="loadSampleDataBtn" class="btn btn-ghost"><i class="fa-solid fa-rotate-right"></i> Cargar Datos de Ejemplo</button>
+            <button id="resetAllDataBtn" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Borrar Todo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveSettingsBtn">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Modal: Centro de Exportación Académica (Panorama General, Diario y Semanal) -->
+  <div class="modal-overlay" id="exportModal" style="display: none;">
+    <div class="modal-box glass-card modal-box-large export-modal-box">
+      <div class="modal-header">
+        <div class="modal-header-title">
+          <i class="fa-solid fa-file-export modal-header-icon" style="color: var(--accent);"></i>
+          <div>
+            <h3>Centro de Exportación y Compartir</h3>
+            <p class="modal-header-sub">Genera vistas estáticas para hosting tradicional, resúmenes para correo y mensajes para WhatsApp</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" data-close="exportModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body export-modal-body">
+        <!-- 1. Scope Selector -->
+        <div class="export-step-group">
+          <label class="export-section-label"><span class="step-num">1</span> Selecciona el Panorama o Alcance:</label>
+          <div class="export-scope-cards">
+            <button type="button" class="export-scope-card active" data-scope="general">
+              <div class="export-scope-icon"><i class="fa-solid fa-earth-americas"></i></div>
+              <div class="export-scope-info">
+                <strong>Panorama General</strong>
+                <span>Todas las instituciones, materias, links, horarios, profesores y tareas</span>
+              </div>
+            </button>
+
+            <button type="button" class="export-scope-card" data-scope="daily">
+              <div class="export-scope-icon"><i class="fa-solid fa-calendar-day"></i></div>
+              <div class="export-scope-info">
+                <strong>Panorama Diario</strong>
+                <span>Agenda del día (Hoy o día puntual), clases, enlaces y tareas</span>
+              </div>
+            </button>
+
+            <button type="button" class="export-scope-card" data-scope="weekly">
+              <div class="export-scope-icon"><i class="fa-solid fa-calendar-week"></i></div>
+              <div class="export-scope-info">
+                <strong>Panorama Semanal</strong>
+                <span>Grilla y cronograma completo de Lunes a Domingo con materias y eventos</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Day Selector (Visible only when scope == 'daily') -->
+        <div class="export-step-group" id="exportDaySelectorSection" style="display: none;">
+          <label class="export-section-label"><span class="step-num">2</span> Día del Panorama Diario:</label>
+          <div class="export-day-pills" id="exportDayPills">
+            <button type="button" class="export-day-pill active" data-day="today">
+              <i class="fa-solid fa-bolt text-amber"></i> Hoy
+            </button>
+            <button type="button" class="export-day-pill" data-day="lunes">Lunes</button>
+            <button type="button" class="export-day-pill" data-day="martes">Martes</button>
+            <button type="button" class="export-day-pill" data-day="miercoles">Miércoles</button>
+            <button type="button" class="export-day-pill" data-day="jueves">Jueves</button>
+            <button type="button" class="export-day-pill" data-day="viernes">Viernes</button>
+            <button type="button" class="export-day-pill" data-day="sabado">Sábado</button>
+            <button type="button" class="export-day-pill" data-day="domingo">Domingo</button>
+          </div>
+        </div>
+
+        <!-- 3. Content Inclusion Options -->
+        <div class="export-step-group">
+          <label class="export-section-label"><span class="step-num">3</span> Opciones de Contenido a Incluir:</label>
+          <div class="export-options-grid">
+            <label class="export-option-toggle">
+              <input type="checkbox" id="exportOptLinks" checked>
+              <span><i class="fa-solid fa-link" style="color: var(--accent);"></i> Enlaces directos (Campus, Classroom, Meet, Drive)</span>
+            </label>
+            <label class="export-option-toggle">
+              <input type="checkbox" id="exportOptTeachers" checked>
+              <span><i class="fa-solid fa-chalkboard-user" style="color: #10b981;"></i> Docentes, emails y horarios de consulta</span>
+            </label>
+            <label class="export-option-toggle">
+              <input type="checkbox" id="exportOptReminders" checked>
+              <span><i class="fa-solid fa-list-check" style="color: #f59e0b;"></i> Recordatorios, entregas y exámenes</span>
+            </label>
+            <label class="export-option-toggle">
+              <input type="checkbox" id="exportOptNotes" checked>
+              <span><i class="fa-solid fa-key" style="color: #a855f7;"></i> Notas y claves de acceso</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. Live Preview Area -->
+        <div class="export-step-group export-preview-group">
+          <div class="export-preview-header">
+            <div class="export-preview-tabs">
+              <button type="button" class="export-tab-btn active" id="exportTabHtml">
+                <i class="fa-brands fa-html5"></i> Vista Previa Web
+              </button>
+              <button type="button" class="export-tab-btn" id="exportTabText">
+                <i class="fa-solid fa-font"></i> Texto / WhatsApp
+              </button>
+            </div>
+            <span class="export-preview-badge" id="exportPreviewBadge">Panorama General</span>
+          </div>
+
+          <div class="export-preview-box">
+            <div class="export-preview-html-view" id="exportPreviewHtmlView">
+              <!-- Rendered dynamically -->
+            </div>
+            <textarea class="export-preview-text-view" id="exportPreviewTextView" readonly style="display: none;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer export-modal-footer">
+        <div class="export-footer-actions-left">
+          <button type="button" class="btn btn-secondary" id="previewStandaloneTabBtn" title="Abrir la versión web estática en una nueva pestaña para probarla">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Previsualizar Web
+          </button>
+        </div>
+
+        <div class="export-footer-actions-right">
+          <button type="button" class="btn btn-primary" id="downloadStandaloneHtmlBtn" title="Descargar archivo .html autocontenido listo para subir a un hosting">
+            <i class="fa-solid fa-download"></i> Descargar Web (.html)
+          </button>
+
+          <button type="button" class="btn btn-success" id="copyEmailFormattedBtn" title="Copiar con formato enriquecido para pegar en Gmail, Outlook, etc.">
+            <i class="fa-solid fa-envelope"></i> Copiar para Mail
+          </button>
+
+          <button type="button" class="btn btn-secondary" id="copyPlainTextBtn" title="Copiar texto con emojis para WhatsApp o notas">
+            <i class="fa-regular fa-copy"></i> Copiar Texto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Main JavaScript File -->
+  <script src="js/app.js"></script>
+</body>
+</html>

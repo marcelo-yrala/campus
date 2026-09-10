@@ -1,0 +1,19 @@
+{
+  "enabled": false,
+  "channel": "both",
+  "time": "07:00",
+  "lastSentDate": "",
+  "email": {
+    "service": "gmail",
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "secure": true,
+    "user": "",
+    "pass": "",
+    "to": ""
+  },
+  "telegram": {
+    "botToken": "",
+    "chatId": ""
+  }
+}

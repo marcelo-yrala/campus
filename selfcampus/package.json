@@ -1,0 +1,20 @@
+{
+  "name": "selfcampus",
+  "version": "2.1.0",
+  "description": "Dashboard y Homepage académica personal con gestión de aulas virtuales, recordatorios, biblioteca PDF, resumen matutino (Email y Telegram) y sincronización multi-navegador con login seguro.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "campus",
+    "educacion",
+    "homepage",
+    "dashboard",
+    "sync",
+    "selfhosted",
+    "productivity"
+  ],
+  "author": "",
+  "license": "MIT"
+}

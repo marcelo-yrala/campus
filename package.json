@@ -1,0 +1,18 @@
+{
+  "name": "mi-campus-personal",
+  "version": "2.0.0",
+  "description": "Homepage académica con gestión de aulas virtuales, recordatorios y sincronización multi-navegador en tiempo real.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "campus",
+    "educacion",
+    "homepage",
+    "dashboard",
+    "sync"
+  ],
+  "author": "",
+  "license": "MIT"
+}

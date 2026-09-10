@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "passwordHash": "",
+  "salt": "",
+  "sessions": {},
+  "failedAttempts": {}
+}

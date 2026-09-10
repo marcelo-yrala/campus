@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "channel": "both",
+  "time": "07:30",
+  "lastSentDate": "2026-09-09",
+  "email": {
+    "service": "gmail",
+    "host": "smtp.gmail.com",
+    "port": 465,
+    "secure": true,
+    "user": "marcelo.yrala@gmail.com",
+    "pass": "cxfo lnuv zazj anng",
+    "to": ""
+  },
+  "telegram": {
+    "botToken": "8951819745:AAH7F2jVAjA8JizaRkFVyy1Yok4FH8JpTAo",
+    "chatId": "2071515620"
+  }
+}

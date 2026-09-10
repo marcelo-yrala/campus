@@ -1,0 +1,231 @@
+{
+  "userName": "Marcelo",
+  "theme": "light",
+  "activeViewMode": "subjects",
+  "quickNotes": "Nota de prueba de sincronización multi-navegador verificada.",
+  "quickLinks": [
+    {
+      "id": "ql-1",
+      "title": "Campus Virtual",
+      "url": "https://campus.miuniversidad.edu.ar",
+      "icon": "fa-building-columns"
+    },
+    {
+      "id": "ql-2",
+      "title": "Correo Institucional",
+      "url": "https://mail.google.com",
+      "icon": "fa-envelope"
+    },
+    {
+      "id": "ql-3",
+      "title": "Google Drive",
+      "url": "https://drive.google.com",
+      "icon": "fa-hard-drive"
+    },
+    {
+      "id": "ql-4",
+      "title": "Biblioteca Digital",
+      "url": "https://biblioteca.unlp.edu.ar",
+      "icon": "fa-book"
+    },
+    {
+      "id": "ql-5",
+      "title": "Calendario Académico",
+      "url": "https://calendar.google.com",
+      "icon": "fa-calendar-days"
+    }
+  ],
+  "institutions": [
+    {
+      "id": "inst-1788973128268",
+      "name": "Instituto de Formacion Tecnica Superior 29",
+      "campusUrl": "https://aulasvirtuales.bue.edu.ar/",
+      "portalUrl": "https://guarani-autogestionagencia.bue.edu.ar/",
+      "color": "#6366f1",
+      "icon": "fa-school",
+      "notes": "Tecnicatura Superior en Desarrollo de Software",
+      "createdAt": 1788973128268
+    },
+    {
+      "id": "inst-1788790016160",
+      "name": "Ciudad Bilingue",
+      "campusUrl": "https://ed.engdis.com/cababilingue#/login",
+      "portalUrl": "",
+      "color": "#6366f1",
+      "icon": "fa-chalkboard-user",
+      "notes": "",
+      "createdAt": 1788790016160
+    },
+    {
+      "id": "inst-1788749841043",
+      "name": "Centro de Formación Profesional (CFP 6)",
+      "campusUrl": "https://aulasvirtuales.bue.edu.ar/course/view.php?id=30056",
+      "portalUrl": "https://guarani-autogestionagencia.bue.edu.ar/",
+      "color": "#6366f1",
+      "icon": "fa-school",
+      "notes": "",
+      "createdAt": 1788749841043
+    },
+    {
+      "id": "inst-1",
+      "name": "Universidad Tecnológica Nacional (UTN)",
+      "campusUrl": "https://aulasvirtuales.frba.utn.edu.ar/my/",
+      "portalUrl": "https://guarani.frba.utn.edu.ar",
+      "icon": "fa-building-columns",
+      "color": "#10b981",
+      "notes": "Usuario: Legajo UTN. DNI sin puntos. Soporte: campus@frba.utn.edu.ar",
+      "createdAt": 1788727603160
+    },
+    {
+      "id": "inst-2",
+      "name": "Centro de Formación Profesional (CFP 2)",
+      "campusUrl": "https://aulasvirtuales.bue.edu.ar/",
+      "portalUrl": "https://guarani-autogestionagencia.bue.edu.ar/",
+      "icon": "fa-school",
+      "color": "#10b981",
+      "notes": "",
+      "createdAt": 1788727703160
+    },
+    {
+      "id": "inst-1788979289161",
+      "name": "Instituto de Formacion Tecnica Superior 16",
+      "campusUrl": "https://aulasvirtuales.bue.edu.ar/course/view.php?id=29860",
+      "portalUrl": "",
+      "icon": "fa-building-columns",
+      "color": "#6366f1",
+      "notes": "",
+      "createdAt": 1788979289161
+    }
+  ],
+  "classrooms": [
+    {
+      "id": "c-1788979289161",
+      "name": "Desarrollo e Implementación de Sistemas en la Nube",
+      "institution": "Instituto de Formacion Tecnica Superior 29",
+      "career": "Software",
+      "platform": "moodle",
+      "url": "https://aulasvirtuales.bue.edu.ar/course/view.php?id=29860",
+      "googleUrl": "",
+      "meetingUrl": "https://meet.google.com/xqz-uwti-uft",
+      "driveUrl": "",
+      "schedule": "Miércoles 19 a 20 hs",
+      "teacher": "Prof. Leandro San Roman",
+      "color": "#6366f1",
+      "icon": "fa-graduation-cap",
+      "notes": "",
+      "createdAt": 1788979289161
+    },
+    {
+      "id": "c-1788791026954",
+      "name": "Ingles",
+      "institution": "Ciudad Bilingue",
+      "career": "Ingles",
+      "platform": "custom",
+      "url": "https://ed.engdis.com/cababilingue#/home",
+      "meetingUrl": "https://meet.google.com/jrm-fpud-rcn",
+      "driveUrl": "https://drive.google.com/drive/folders/1ratKcPRccmUvQMRBnAUgupKN-snmLRHT",
+      "schedule": "Lunes 11 a 12 hs",
+      "teacher": "Juan Nervi",
+      "color": "#6366f1",
+      "icon": "fa-globe",
+      "notes": "",
+      "createdAt": 1788791026954,
+      "googleUrl": ""
+    },
+    {
+      "id": "c-1788750158715",
+      "name": "Base datos - Trayecto Programador",
+      "institution": "Centro de Formación Profesional (CFP 2)",
+      "career": "Programación",
+      "platform": "moodle",
+      "url": "https://aulasvirtuales.bue.edu.ar/course/view.php?id=30056",
+      "meetingUrl": "https://meet.google.com/zme-prvj-koj",
+      "driveUrl": "",
+      "schedule": "Martes 8:40",
+      "teacher": "Prof. Lucas Cascardo",
+      "color": "#6366f1",
+      "icon": "fa-graduation-cap",
+      "notes": "",
+      "createdAt": 1788750158715
+    },
+    {
+      "id": "c-1788747953515",
+      "name": "Programación con IA",
+      "institution": "Centro de Formación Profesional (CFP 6)",
+      "career": "Programación",
+      "platform": "moodle",
+      "url": "https://aulasvirtuales.bue.edu.ar/course/view.php?id=28473",
+      "meetingUrl": "https://meet.google.com/abc-defg-hij",
+      "driveUrl": "",
+      "schedule": "Martes y Jueves 18:30 a 21:30",
+      "teacher": "Prof. Ezequiel Taboada",
+      "color": "#6366f1",
+      "icon": "fa-graduation-cap",
+      "notes": "",
+      "createdAt": 1788747953515,
+      "googleUrl": "https://classroom.google.com/c/ODY5NTIwNDI5MzI1"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "r-4",
+      "title": "Inscripción a finales de turno Julio",
+      "classroomId": "",
+      "priority": "medium",
+      "dueDate": "2026-09-16",
+      "dueTime": "20:00",
+      "details": "Trámite desde el portal de alumnos SIU.",
+      "completed": true,
+      "createdAt": 1788728133162
+    }
+  ],
+  "teachers": [
+    {
+      "id": "t-1",
+      "name": "Prof. Ezequiel Taboada",
+      "email": "ezequiel.taboada@bue.edu.ar",
+      "phone": "+54 9 11 4455-6677",
+      "institution": "Centro de Formación Profesional (CFP 6)",
+      "subject": "Programación con IA",
+      "officeHours": "Jueves 17:30 a 18:30 hs",
+      "meetUrl": "https://meet.google.com/abc-defg-hij",
+      "color": "#6366f1",
+      "icon": "fa-laptop-code",
+      "notes": "Indicar en el asunto: [IA-CFP6]. Responder consultas con 48hs de anticipación.",
+      "createdAt": 1788748536659
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-1788973378771",
+      "title": "Essential Grammar in Use 4th Edition by R. Murphy",
+      "classroomId": "c-1788791026954",
+      "category": "guia",
+      "author": "",
+      "readStatus": "pending",
+      "tags": "",
+      "notes": "",
+      "isFavorite": false,
+      "fileName": "Essential Grammar in Use 4th Edition by R. Murphy.pdf",
+      "fileSize": "14091812",
+      "createdAt": 1788973379276,
+      "lastOpenedAt": 1788973385406
+    },
+    {
+      "id": "doc-1788958713994",
+      "title": "CURSO INTENSIVO DE PYTHON (Eric Matthes)",
+      "classroomId": "",
+      "category": "guia",
+      "author": "",
+      "readStatus": "pending",
+      "tags": "",
+      "notes": "",
+      "isFavorite": false,
+      "fileName": "CURSO INTENSIVO DE PYTHON (Eric Matthes).pdf",
+      "fileSize": "8097316",
+      "createdAt": 1788958714604,
+      "lastOpenedAt": 1788958718151
+    }
+  ],
+  "lastUpdated": 1789063227771
+}

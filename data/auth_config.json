@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "passwordHash": "a48a7915ddcecac37a8e6cc0a94e630a9f60df2a2c5425484463637de4e64feba36539696f29c078cedce9de5a773914788a18be9c5740446ef5d8f877df4865",
+  "salt": "72b2400ffb7b549c9de5830d013f7679",
+  "sessions": {
+    "d8fbadf7a568f1a3b16a00b7add06bf4ab3f2203be830a4b0076e6bc7bec0ae8": {
+      "createdAt": 1789065447907,
+      "expiresAt": 1791657447907,
+      "ip": "::1"
+    }
+  },
+  "failedAttempts": {}
+}
